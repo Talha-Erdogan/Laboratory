@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Laboratory.Web.Business\Laboratory.Web.Business.csproj" />
+  </ItemGroup>
+
 </Project>

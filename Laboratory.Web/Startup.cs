@@ -2,11 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Laboratory.Web.Business;
+using Laboratory.Web.Business.Common;
+using Laboratory.Web.Business.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace Laboratory.Web
@@ -24,6 +31,32 @@ namespace Laboratory.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+
+            services.AddSingleton<IConfiguration>(Configuration); //add Configuration to our services collection
+
+            // session kullanýmý tanýmý
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache(); //This way ASP.NET Core will use a Memory Cache to store session variables
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+
+            //Session için IHttpContextAccessor arayüzünün kullanýma açýlmasý
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +78,16 @@ namespace Laboratory.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // session kullanýmý
+            app.UseSession(); //make sure add this line before UseMvc()
+            // SessionHelper'a HttpContextAccessor nesnesi ataniyor
+            SessionHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+
+
+            //config helper'ý configure etmek için
+
+            ConfigHelper.Configure(Configuration);
 
             app.UseEndpoints(endpoints =>
             {
