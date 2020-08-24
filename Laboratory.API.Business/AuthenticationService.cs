@@ -1,0 +1,37 @@
+﻿using Laboratory.API.Business.Interfaces;
+using Laboratory.API.Business.Models.Authentication;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Laboratory.API.Business
+{
+   public  class AuthenticationService: IAuthenticationService
+    {
+        private readonly IEmployeeService _employeeService;
+        public AuthenticationService(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
+
+        public EmployeeLoginResponse Login(string userName, string password, string language)
+        {
+            EmployeeLoginResponse result = new EmployeeLoginResponse();
+
+            var employee = _employeeService.GetByUserNameAndPassword(userName, password);
+            if (employee != null)
+            {
+                result.Employee = employee;
+                result.IsValid = true;
+                result.ErrorMessage = "";
+            }
+            else
+            {
+                result.IsValid = false;
+                result.ErrorMessage = "Kullanıcı veritabanında bulunamadı.";
+            }
+            return result;
+        }
+
+    }
+}

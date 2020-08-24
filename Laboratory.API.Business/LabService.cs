@@ -99,6 +99,7 @@ namespace Laboratory.API.Business
         public int Add(Lab record)
         {
             int result = 0;
+            record.CurrentApplianceCapacity = 0;
             using (AppDBContext dbContext = new AppDBContext(_config))
             {
                 dbContext.Entry(record).State = EntityState.Added;

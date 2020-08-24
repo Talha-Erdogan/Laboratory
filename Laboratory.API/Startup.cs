@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Laboratory.API.Business;
 using Laboratory.API.Business.Interfaces;
+using Laboratory.API.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace Laboratory.API
         public void ConfigureServices(IServiceCollection services)
         {
             // business service ve interface DI container tanimlari
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IApplianceService, ApplianceService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
