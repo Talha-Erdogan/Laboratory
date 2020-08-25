@@ -56,6 +56,29 @@ namespace Laboratory.API.Controllers
             }
         }
 
+        [Route("All")]
+        [HttpGet]
+        //[TokenAuthorizeFilter]
+        public IActionResult GetAll([FromHeader] string displayLanguage)
+        {
+            ApiResponseModel<List<Data.Entity.Appliance>> responseModel = new ApiResponseModel<List<Data.Entity.Appliance>>() { DisplayLanguage = displayLanguage };
+            try
+            {
+                var appliance = _applianceService.GetAll();
+                responseModel.Data = appliance;
+                responseModel.ResultStatusCode = ResultStatusCodeStatic.Success;
+                responseModel.ResultStatusMessage = "Success";
+                return Ok(responseModel);
+            }
+            catch (Exception ex)
+            {
+                responseModel.ResultStatusCode = ResultStatusCodeStatic.Error;
+                responseModel.ResultStatusMessage = ex.Message;
+                responseModel.Data = null;
+                return StatusCode(StatusCodes.Status500InternalServerError, responseModel);
+            }
+        }
+
         [Route("{Id}")]
         [HttpGet]
         //[TokenAuthorizeFilter]

@@ -14,11 +14,11 @@ namespace Laboratory.Web.Business
     public class MoveService : IMoveService
     {
         //api ile bağlandıgımız servisler
-        public ApiResponseModel<PaginatedList<Move>> GetAllPaginatedWithDetailBySearchFilter(string userToken, string displayLanguage, MoveSearchFilter searchFilter)
+        public ApiResponseModel<PaginatedList<MoveWithDetail>> GetAllPaginatedWithDetailBySearchFilter(string userToken, string displayLanguage, MoveSearchFilter searchFilter)
         {
-            ApiResponseModel<PaginatedList<Move>> result = new ApiResponseModel<PaginatedList<Move>>()
+            ApiResponseModel<PaginatedList<MoveWithDetail>> result = new ApiResponseModel<PaginatedList<MoveWithDetail>>()
             {
-                Data = new PaginatedList<Move>(new List<Move>(), 0, searchFilter.CurrentPage, searchFilter.PageSize, searchFilter.SortOn, searchFilter.SortDirection)
+                Data = new PaginatedList<MoveWithDetail>(new List<MoveWithDetail>(), 0, searchFilter.CurrentPage, searchFilter.PageSize, searchFilter.SortOn, searchFilter.SortDirection)
             };
             //portal api'den çekme işlemi            
             using (HttpClient httpClient = new HttpClient())
@@ -28,9 +28,9 @@ namespace Laboratory.Web.Business
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
                 httpClient.DefaultRequestHeaders.Add("DisplayLanguage", displayLanguage);
-                HttpResponseMessage response = httpClient.GetAsync(string.Format("v1/Lab?CurrentPage={0}&PageSize={1}&SortOn={2}&SortDirection={3}&Appliance_Name={4}&Lab_Name",
+                HttpResponseMessage response = httpClient.GetAsync(string.Format("v1/Move?CurrentPage={0}&PageSize={1}&SortOn={2}&SortDirection={3}&Appliance_Name={4}&Lab_Name",
                   searchFilter.CurrentPage, searchFilter.PageSize, searchFilter.SortOn, searchFilter.SortDirection, searchFilter.Filter_Appliance_Name,searchFilter.Filter_Lab_Name)).Result;
-                result = response.Content.ReadAsJsonAsync<ApiResponseModel<PaginatedList<Move>>>().Result;
+                result = response.Content.ReadAsJsonAsync<ApiResponseModel<PaginatedList<MoveWithDetail>>>().Result;
             }
             return result;
         }

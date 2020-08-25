@@ -8,7 +8,7 @@ namespace Laboratory.Web.Business.Interfaces
 {
     public interface IMoveService
     {
-        ApiResponseModel<PaginatedList<Move>> GetAllPaginatedWithDetailBySearchFilter(string userToken, string displayLanguage, MoveSearchFilter searchFilter);
+        ApiResponseModel<PaginatedList<MoveWithDetail>> GetAllPaginatedWithDetailBySearchFilter(string userToken, string displayLanguage, MoveSearchFilter searchFilter);
         ApiResponseModel<Move> GetById(string userToken, string displayLanguage, int id);
         ApiResponseModel<Move> Add(string userToken, string displayLanguage, Move move);
         ApiResponseModel<Move> Edit(string userToken, string displayLanguage, Move move);

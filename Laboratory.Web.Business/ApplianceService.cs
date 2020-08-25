@@ -37,6 +37,23 @@ namespace Laboratory.Web.Business
             return result;
         }
 
+        public ApiResponseModel<List<Appliance>> GetAll(string userToken, string displayLanguage)
+        {
+            ApiResponseModel<List<Appliance>> result = new ApiResponseModel<List<Appliance>>();
+            // portal api'den çekme işlemi 
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(ConfigHelper.ApiUrl);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+                httpClient.DefaultRequestHeaders.Add("DisplayLanguage", displayLanguage);
+                HttpResponseMessage response = httpClient.GetAsync(string.Format("v1/Appliance/All")).Result;
+                result = response.Content.ReadAsJsonAsync<ApiResponseModel<List<Appliance>>>().Result;
+            }
+            return result;
+        }
+
         public ApiResponseModel<Appliance> GetById(string userToken, string displayLanguage, int id)
         {
             ApiResponseModel<Appliance> result = new ApiResponseModel<Appliance>();

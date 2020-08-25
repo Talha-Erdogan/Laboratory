@@ -9,6 +9,7 @@ namespace Laboratory.Web.Business.Interfaces
     public interface IApplianceService
     {
         ApiResponseModel<PaginatedList<Appliance>> GetAllPaginatedWithDetailBySearchFilter(string userToken, string displayLanguage, ApplianceSearchFilter searchFilter);
+        ApiResponseModel<List<Appliance>> GetAll(string userToken, string displayLanguage);
         ApiResponseModel<Appliance> GetById(string userToken, string displayLanguage, int id);
         ApiResponseModel<Appliance> Add(string userToken, string displayLanguage, Appliance appliance);
         ApiResponseModel<Appliance> Edit(string userToken, string displayLanguage, Appliance appliance);

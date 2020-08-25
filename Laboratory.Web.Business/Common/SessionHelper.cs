@@ -256,10 +256,10 @@ namespace Laboratory.Web.Business.Common
         }
 
 
-        public static async Task<string> GetUserToken()
-        {
-            return CurrentUser.UserToken;
-        }
+        //public static async Task<string> GetUserToken()
+        //{
+        //    return CurrentUser.UserToken;
+        //}
 
     }
 }

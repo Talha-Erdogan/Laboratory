@@ -19,9 +19,11 @@ namespace Laboratory.API.Controllers
     public class MoveController : ControllerBase
     {
         private readonly IMoveService _moveService;
-        public MoveController(IMoveService moveService)
+        private readonly ILabService _labService;
+        public MoveController(IMoveService moveService, ILabService labService)
         {
             _moveService = moveService;
+            _labService = labService;
         }
 
 
@@ -95,6 +97,17 @@ namespace Laboratory.API.Controllers
                 record.EntranceDate = requestModel.EntranceDate;
                 record.ExitDate = requestModel.ExitDate;
 
+                var lab = _labService.GetById(requestModel.LabId);
+                if (lab.CurrentApplianceCapacity+1 > lab.MaxApplianceCapacity)
+                {
+                    responseModel.ResultStatusCode = ResultStatusCodeStatic.Error;
+                    responseModel.ResultStatusMessage = "Lab capacity full";
+                    responseModel.Data = null;
+                    return StatusCode(StatusCodes.Status500InternalServerError, responseModel);
+                }
+                lab.CurrentApplianceCapacity++;
+                _labService.Update(lab);
+
                 var dbResult = _moveService.Add(record);
 
                 if (dbResult > 0)
@@ -135,6 +148,9 @@ namespace Laboratory.API.Controllers
                 var dbResult = _moveService.Update(record);
                 if (dbResult > 0)
                 {
+                    var lab = _labService.GetById(record.LabId);
+                    lab.CurrentApplianceCapacity--;
+                    _labService.Update(lab);
                     responseModel.Data = record;
                     responseModel.ResultStatusCode = ResultStatusCodeStatic.Success;
                     responseModel.ResultStatusMessage = "Success";
