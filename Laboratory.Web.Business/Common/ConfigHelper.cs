@@ -23,7 +23,10 @@ namespace Laboratory.Web.Business.Common
                 //return System.Configuration.ConfigurationManager.AppSettings["PortalApiUrl"];
                 // todo: appsettings.json dosyasından okunması sağlanacak
                 //return _configuration.GetValue<string>("AppSettings:ApiUrl");
-                return _configuration.GetSection(ApiUrl).Value;
+                //return _configuration.GetSection(ApiUrl).Value;
+
+                
+                return _configuration.GetSection("AppSettings:ApiUrl").Value;
             }
         }
 
@@ -34,7 +37,8 @@ namespace Laboratory.Web.Business.Common
                 //return System.Configuration.ConfigurationManager.AppSettings["PortalApiUrl"];
                 // todo: appsettings.json dosyasından okunması sağlanacak
                 //return _configuration.GetValue<string>("AppSettings:ApiBaseUrl");
-                return _configuration.GetSection(ApiBaseUrl).Value;
+                //return _configuration.GetSection(ApiBaseUrl).Value;
+                return _configuration.GetSection("AppSettings:ApiBaseUrl").Value;
             }
         }
 

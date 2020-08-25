@@ -55,8 +55,15 @@ namespace Laboratory.Web
             });
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
-
-
+            services.AddTransient<IApplianceService, ApplianceService>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<ILabService, LabService>();
+            services.AddTransient<IMoveService, MoveService>();
+            services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IProfileDetailService, ProfileDetailService>();
+            services.AddTransient<IProfileEmployeeService, ProfileEmployeeService>();
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,7 +100,7 @@ namespace Laboratory.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=User}/{action=Login}/{id?}");
             });
         }
     }
