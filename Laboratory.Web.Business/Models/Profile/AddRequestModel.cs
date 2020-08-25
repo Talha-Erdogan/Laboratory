@@ -8,7 +8,6 @@ namespace Laboratory.Web.Business.Models.Profile
     {
         public int Id { get; set; }
         public string Code { get; set; }
-        public string NameTR { get; set; }
-        public string NameEN { get; set; }
+        public string Name { get; set; }
     }
 }

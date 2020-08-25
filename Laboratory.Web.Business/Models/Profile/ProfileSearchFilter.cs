@@ -16,7 +16,6 @@ namespace Laboratory.Web.Business.Models.Profile
 
         // filters        
         public string Filter_Code { get; set; }
-        public string Filter_NameTR { get; set; }
-        public string Filter_NameEN { get; set; }
+        public string Filter_Name { get; set; }
     }
 }
