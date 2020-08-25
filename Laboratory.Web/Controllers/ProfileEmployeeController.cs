@@ -8,6 +8,7 @@ using Laboratory.Web.Business.Enums;
 using Laboratory.Web.Business.Interfaces;
 using Laboratory.Web.Business.Models;
 using Laboratory.Web.Business.Models.ProfileEmployee;
+using Laboratory.Web.Filters;
 using Laboratory.Web.Models.ProfileEmployee;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -28,7 +29,7 @@ namespace Laboratory.Web.Controllers
         }
 
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEEMPLOYEE_BATCHEDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEEMPLOYEE_BATCHEDIT)]
         public ActionResult BatchEdit()
         {
             BatchEditViewModel model = new BatchEditViewModel();
@@ -50,7 +51,7 @@ namespace Laboratory.Web.Controllers
         }
 
         [HttpPost]
-       // [AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEEMPLOYEE_BATCHEDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEEMPLOYEE_BATCHEDIT)]
         public ActionResult BatchEdit(BatchEditViewModel model)
         {
             if (!ModelState.IsValid)

@@ -7,6 +7,7 @@ using Laboratory.Web.Business.Common.Enums;
 using Laboratory.Web.Business.Enums;
 using Laboratory.Web.Business.Interfaces;
 using Laboratory.Web.Business.Models.Appliance;
+using Laboratory.Web.Filters;
 using Laboratory.Web.Models.Appliance;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace Laboratory.Web.Controllers
             _applianceService = applianceService;
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_LIST)]
         public ActionResult List()
         {
             ListViewModel model = new ListViewModel();
@@ -50,7 +51,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_LIST)]
         [HttpPost]
         public ActionResult List(ListViewModel model)
         {
@@ -92,7 +93,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_ADD)]
         public ActionResult Add()
         {
             Models.Appliance.AddViewModel model = new AddViewModel();
@@ -106,7 +107,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_ADD)]
         [HttpPost]
         public ActionResult Add(Models.Appliance.AddViewModel model)
         {
@@ -162,7 +163,7 @@ namespace Laboratory.Web.Controllers
             return RedirectToAction(nameof(ApplianceController.List));
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_EDIT)]
         public ActionResult Edit(int id)
         {
             Models.Appliance.ApplianceModel model = new ApplianceModel();
@@ -186,7 +187,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_EDIT)]
         [HttpPost]
         public ActionResult Edit(Models.Appliance.ApplianceModel model)
         {

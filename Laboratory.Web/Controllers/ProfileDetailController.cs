@@ -7,6 +7,7 @@ using Laboratory.Web.Business.Common.Enums;
 using Laboratory.Web.Business.Enums;
 using Laboratory.Web.Business.Interfaces;
 using Laboratory.Web.Business.Models.ProfileDetail;
+using Laboratory.Web.Filters;
 using Laboratory.Web.Models.ProfileDetail;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,7 +25,7 @@ namespace Laboratory.Web.Controllers
             _profileService = profileService;
         }
 
-       // [AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEDETAIL_BATCHEDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEDETAIL_BATCHEDIT)]
         public ActionResult BatchEdit()
         {
             BatchEditViewModel model = new BatchEditViewModel();
@@ -35,7 +36,7 @@ namespace Laboratory.Web.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEDETAIL_BATCHEDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_PROFILEDETAIL_BATCHEDIT)]
         public ActionResult BatchEdit(BatchEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -137,7 +138,7 @@ namespace Laboratory.Web.Controllers
             List<AuthCheckViewModel> resultList = new List<AuthCheckViewModel>();
             // api'den çekim yapılacak
             var apiResponseModel = _profileDetailService.GetAllAuthByProfileIdWhichIsNotIncluded(SessionHelper.CurrentUser.UserToken, SessionHelper.CurrentLanguageTwoChar, profileId);
-            resultList = apiResponseModel.Data.Select(a => new AuthCheckViewModel() { Id = a.Id, Name =  a.Name, Checked = false, Code = a.Code }).ToList();
+            resultList = apiResponseModel.Data.Select(a => new AuthCheckViewModel() { Id = a.Id, Name = a.Name, Checked = false, Code = a.Code }).ToList();
             return resultList;
         }
 
@@ -147,7 +148,7 @@ namespace Laboratory.Web.Controllers
             // aktif profil kayıtları listelenir
             List<SelectListItem> resultList = new List<SelectListItem>();
             var apiResponseModel = _profileService.GetAll(userToken, displayLanguage);
-            resultList = apiResponseModel.Data.OrderBy(r =>  r.Name).Select(r => new SelectListItem() { Value = r.Id.ToString(), Text =  r.Name }).ToList();
+            resultList = apiResponseModel.Data.OrderBy(r => r.Name).Select(r => new SelectListItem() { Value = r.Id.ToString(), Text = r.Name }).ToList();
             return resultList;
         }
     }

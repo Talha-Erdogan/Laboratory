@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Laboratory.Web.Business.Common;
 using Laboratory.Web.Business.Common.Enums;
+using Laboratory.Web.Business.Enums;
 using Laboratory.Web.Business.Interfaces;
 using Laboratory.Web.Business.Models.Lab;
+using Laboratory.Web.Filters;
 using Laboratory.Web.Models.Lab;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +22,7 @@ namespace Laboratory.Web.Controllers
         }
 
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_LIST)]
         public ActionResult List()
         {
             ListViewModel model = new ListViewModel();
@@ -50,7 +52,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_LIST)]
         [HttpPost]
         public ActionResult List(ListViewModel model)
         {
@@ -92,14 +94,14 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_ADD)]
         public ActionResult Add()
         {
             Models.Lab.AddViewModel model = new AddViewModel();
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_ADD)]
         [HttpPost]
         public ActionResult Add(Models.Lab.AddViewModel model)
         {
@@ -124,7 +126,7 @@ namespace Laboratory.Web.Controllers
             }
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_EDIT)]
         public ActionResult Edit(int id)
         {
             Models.Lab.AddViewModel model = new AddViewModel();
@@ -149,7 +151,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_LAB_EDIT)]
         [HttpPost]
         public ActionResult Edit(Models.Lab.AddViewModel model)
         {

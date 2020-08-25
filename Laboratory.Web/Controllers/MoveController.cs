@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Laboratory.Web.Business.Common;
 using Laboratory.Web.Business.Common.Enums;
+using Laboratory.Web.Business.Enums;
 using Laboratory.Web.Business.Interfaces;
 using Laboratory.Web.Business.Models.Move;
+using Laboratory.Web.Filters;
 using Laboratory.Web.Models.Move;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,7 +26,7 @@ namespace Laboratory.Web.Controllers
         }
 
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_LIST)]
         public ActionResult List(string errorMessage=default)
         {
             if (!string.IsNullOrEmpty(errorMessage))
@@ -60,7 +62,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_LIST)]
         [HttpPost]
         public ActionResult List(ListViewModel model)
         {
@@ -103,7 +105,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_ADD)]
         public ActionResult Add()
         {
             Models.Move.AddViewModel model = new AddViewModel();
@@ -113,7 +115,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_ADD)]
         [HttpPost]
         public ActionResult Add(Models.Move.AddViewModel model)
         {
@@ -146,7 +148,7 @@ namespace Laboratory.Web.Controllers
             }
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_EDIT)]
         public ActionResult Edit(int id)
         {
            

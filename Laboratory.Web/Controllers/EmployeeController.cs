@@ -7,6 +7,7 @@ using Laboratory.Web.Business.Common.Enums;
 using Laboratory.Web.Business.Enums;
 using Laboratory.Web.Business.Interfaces;
 using Laboratory.Web.Business.Models.Employee;
+using Laboratory.Web.Filters;
 using Laboratory.Web.Models.Employee;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace Laboratory.Web.Controllers
         }
 
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_LIST)]
         public ActionResult List()
         {
             ListViewModel model = new ListViewModel();
@@ -52,7 +53,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_LIST)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_LIST)]
         [HttpPost]
         public ActionResult List(ListViewModel model)
         {
@@ -95,14 +96,14 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_ADD)]
         public ActionResult Add()
         {
             Models.Employee.AddViewModel model = new AddViewModel();
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_ADD)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_ADD)]
         [HttpPost]
         public ActionResult Add(Models.Employee.AddViewModel model)
         {
@@ -132,7 +133,7 @@ namespace Laboratory.Web.Controllers
             }
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_EDIT)]
         public ActionResult Edit(int id)
         {
             Models.Employee.AddViewModel model = new AddViewModel();
@@ -161,7 +162,7 @@ namespace Laboratory.Web.Controllers
             return View(model);
         }
 
-        //[AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_EDIT)]
+        [AppAuthorizeFilter(AuthCodeStatic.PAGE_EMPLOYEE_EDIT)]
         [HttpPost]
         public ActionResult Edit(Models.Employee.AddViewModel model)
         {
