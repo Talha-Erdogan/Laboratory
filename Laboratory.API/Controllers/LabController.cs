@@ -7,6 +7,7 @@ using Laboratory.API.Business.Models;
 using Laboratory.API.Business.Models.Lab;
 using Laboratory.API.Common.Enums;
 using Laboratory.API.Data.Entity;
+using Laboratory.API.Filters;
 using Laboratory.API.Models;
 using Laboratory.API.Models.Lab;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ namespace Laboratory.API.Controllers
 
         [Route("")]
         [HttpGet]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_LAB_LIST)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_LAB_LIST)]
         public IActionResult GetAllPaginatedWithDetail([FromQuery] GetAllPaginatedRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<PaginatedList<Lab>>();
@@ -57,7 +58,7 @@ namespace Laboratory.API.Controllers
 
         [Route("All")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+        [TokenAuthorizeFilter]
         public IActionResult GetAll([FromHeader] string displayLanguage)
         {
             ApiResponseModel<List<Data.Entity.Lab>> responseModel = new ApiResponseModel<List<Data.Entity.Lab>>() { DisplayLanguage = displayLanguage };
@@ -80,7 +81,7 @@ namespace Laboratory.API.Controllers
 
         [Route("{Id}")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+        [TokenAuthorizeFilter]
         public IActionResult GetById(int id, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Lab>();
@@ -103,7 +104,7 @@ namespace Laboratory.API.Controllers
 
 
         [HttpPost]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_LAB_ADD)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_LAB_ADD)]
         public IActionResult Add([FromBody] AddRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Lab>();
@@ -143,7 +144,7 @@ namespace Laboratory.API.Controllers
 
         [Route("{Id}")]
         [HttpPut]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_LAB_EDIT)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_LAB_EDIT)]
         public IActionResult Edit(int id, [FromBody] AddRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Lab>();

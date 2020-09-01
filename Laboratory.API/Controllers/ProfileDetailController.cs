@@ -24,7 +24,7 @@ namespace Laboratory.API.Controllers
 
         [Route("GetAllAuthByCurrentUser")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+        [TokenAuthorizeFilter]
         public IActionResult GetAllAuthByCurrentUser([FromQuery] GetAllByCurrentUserRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<List<Data.Entity.Auth>>();

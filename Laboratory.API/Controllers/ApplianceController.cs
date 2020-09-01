@@ -27,7 +27,7 @@ namespace Laboratory.API.Controllers
 
         [Route("")]
         [HttpGet]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_LIST)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_LIST)]
         public IActionResult GetAllPaginatedWithDetail([FromQuery] GetAllPaginatedRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<PaginatedList<Appliance>>();
@@ -58,7 +58,7 @@ namespace Laboratory.API.Controllers
 
         [Route("All")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+        [TokenAuthorizeFilter]
         public IActionResult GetAll([FromHeader] string displayLanguage)
         {
             ApiResponseModel<List<Data.Entity.Appliance>> responseModel = new ApiResponseModel<List<Data.Entity.Appliance>>() { DisplayLanguage = displayLanguage };
@@ -81,7 +81,7 @@ namespace Laboratory.API.Controllers
 
         [Route("{Id}")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+        [TokenAuthorizeFilter]
         public IActionResult GetById(int id, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Appliance>();
@@ -104,7 +104,7 @@ namespace Laboratory.API.Controllers
 
 
         [HttpPost]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_ADD)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_ADD)]
         public IActionResult Add([FromBody] AddRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Appliance>();
@@ -143,7 +143,7 @@ namespace Laboratory.API.Controllers
 
         [Route("{Id}")]
         [HttpPut]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_EDIT)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_APPLIANCE_EDIT)]
         public IActionResult Edit(int id, [FromBody] AddRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Appliance>();

@@ -7,6 +7,7 @@ using Laboratory.API.Business.Models;
 using Laboratory.API.Business.Models.Move;
 using Laboratory.API.Common.Enums;
 using Laboratory.API.Data.Entity;
+using Laboratory.API.Filters;
 using Laboratory.API.Models;
 using Laboratory.API.Models.Move;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,7 @@ namespace Laboratory.API.Controllers
 
         [Route("")]
         [HttpGet]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_LIST)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_LIST)]
         public IActionResult GetAllPaginatedWithDetail([FromQuery] GetAllPaginatedRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<PaginatedList<MoveWithDetail>>();
@@ -61,7 +62,7 @@ namespace Laboratory.API.Controllers
 
         [Route("{Id}")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+        [TokenAuthorizeFilter]
         public IActionResult GetById(int id, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Move>();
@@ -84,7 +85,7 @@ namespace Laboratory.API.Controllers
 
 
         [HttpPost]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_ADD)]
+       [TokenAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_ADD)]
         public IActionResult Add([FromBody] AddRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Move>();
@@ -136,7 +137,7 @@ namespace Laboratory.API.Controllers
 
         [Route("{Id}")]
         [HttpPut]
-        //[TokenAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_EDIT)]
+        [TokenAuthorizeFilter(AuthCodeStatic.PAGE_MOVE_EDIT)]
         public IActionResult Edit(int id, [FromBody] AddRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<Move>();

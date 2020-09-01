@@ -25,7 +25,7 @@ namespace Laboratory.API.Controllers
 
         [Route("GetAllEmployeePaginatedWithDetail")]
         [HttpGet]
-        //[TokenAuthorizeFilter]
+       [TokenAuthorizeFilter]
         public ApiResponseModel<PaginatedList<Data.Entity.Employee>> GetAllEmployeePaginatedWithDetail([FromQuery] GetAllEmployeePaginatedRequestModel requestModel, [FromHeader] string displayLanguage)
         {
             var responseModel = new ApiResponseModel<PaginatedList<Data.Entity.Employee>>() { DisplayLanguage = displayLanguage };
